@@ -14,13 +14,14 @@ import {
     CLabel
   } from '@coreui/react';
 
-  const baseUrl = 'http://localhost:8181';
+  const baseUrl = 'http://localhost:81';
 
 class UpdateUser extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
+            id: this.props.match.params.id,
             users: [],
             rolesOption: [],
             username: '',
@@ -75,7 +76,7 @@ class UpdateUser extends React.Component {
           }) 
 
           ////// Get User one
-          axios.get(`${baseUrl}`+`/api/v1/user/1`)
+          axios.get(`${baseUrl}`+`/api/v1/user/${this.state.id}`)
           .then((response) => {
             this.setState({ users: response.data.data });
           })

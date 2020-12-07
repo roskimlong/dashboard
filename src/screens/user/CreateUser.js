@@ -15,7 +15,7 @@ import {
     CLabel
   } from '@coreui/react';
 
-  const baseUrl = 'http://localhost:8181';
+  const baseUrl = 'http://localhost:81';
 
 class CreateUser extends React.Component {
 
@@ -42,9 +42,8 @@ class CreateUser extends React.Component {
         });
 
         axios.post(`${baseUrl}`+`/api/v1/user`, { userObject })
-          .then(function (response) {
-            console.log(response);
-            <Redirect to="/user" />
+          .then(function () {
+            // <Redirect to="/user" />
           })
     }
     

@@ -2,20 +2,22 @@ import React from 'react';
 import axios from 'axios';
 import {
     CButton,
+    CCard,
     CCardBody,
     CCardHeader,
-    CDataTable,
-    CCard
+    CDataTable
   } from '@coreui/react';
 
-const baseUrl = 'http://localhost:81';
+  const baseUrl = 'http://localhost:81';
 
-class Role extends React.Component {
+  class Tag extends React.Component {
 
     constructor(){
-        super()
+        super();
         this.state = {
-            roles: []
+            name: '',
+            description: '',
+            tags: []
         }
     }
 
@@ -30,12 +32,11 @@ class Role extends React.Component {
         { key: 'action', _style: { width: '15%'} }
     ]
 
-    componentDidMount() {
-        // Get Role Option
-        axios.get(`${baseUrl}`+`/api/v1/role`)
+    componentDidMount(){
+        // Get Tags All
+        axios.get(`${baseUrl}`+`/api/v1/tag`)
           .then((response) => {
-            this.setState({ roles: response.data.data });
-            console.log(this.state.users);
+            this.setState({ tags: response.data.data });
           })
           .catch(function (error) {
             console.log(error);
@@ -46,11 +47,11 @@ class Role extends React.Component {
         return(
             <CCard>
                 <CCardHeader>
-                    <CButton to="/role/create" className="float-right">+ New</CButton>
+                    <CButton to="/tag/create" className="float-right">+ New</CButton>
                 </CCardHeader>
                 <CCardBody>
                     <CDataTable
-                    items={this.state.roles}
+                    items={this.state.tags}
                     fields={this.fields}
                     tableFilter
                     itemsPerPageSelect
@@ -60,13 +61,13 @@ class Role extends React.Component {
                     pagination
                     scopedSlots = {{
                         'action':
-                          (item)=>(
+                            (item)=>(
                             <td>
                                 <CButton className="btn btn-secondary mr-2" size='sm'>
-                                   Edit
+                                    Edit
                                 </CButton>
                                 <CButton className="btn btn-danger sm" size='sm'>
-                                   Delete
+                                    Delete
                                 </CButton>
                             </td>
                         )}}
@@ -76,5 +77,4 @@ class Role extends React.Component {
         );
     }
 }
-
-export default Role;
+  export default Tag;

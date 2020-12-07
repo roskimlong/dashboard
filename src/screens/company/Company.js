@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import {
     CButton,
     CCard,
@@ -8,16 +7,7 @@ import {
     CDataTable
   } from '@coreui/react';
 
-const baseUrl = 'http://localhost:81';
-
-class User extends React.Component {
-
-    constructor(props){
-        super(props);
-        this.state = {
-            users: []
-        }
-    }
+class Company extends React.Component {
 
     fields = [
         { key: 'id', label: 'ID', _style: { width: '10%' } },
@@ -32,26 +22,15 @@ class User extends React.Component {
         { key: 'action', _style: { width: '15%'} }
     ]
 
-    componentDidMount() {
-        axios.get(`${baseUrl}`+`/api/v1/user`)
-          .then((response) => {
-            this.setState({ users: response.data.data });
-            console.log(this.state.users);
-          })
-          .catch(function (error) {
-            console.log(error);
-          }) 
-    }
-
     render(){
         return(
             <CCard>
                 <CCardHeader>
-                    <CButton to="/user/create" className="float-right">+ New</CButton>
+                    <CButton to="/company/create" className="float-right">+ New</CButton>
                 </CCardHeader>
                 <CCardBody>
                      <CDataTable
-                     items={this.state.users}
+                    //  items={this.state.users}
                      fields={this.fields}
                      tableFilter
                      itemsPerPageSelect
@@ -63,7 +42,7 @@ class User extends React.Component {
                         'action':
                           (item)=>(
                             <td>
-                                <CButton to={`/user/edit/${item.id}`} className="btn btn-secondary mr-2" size='sm'>
+                                <CButton to={`//edit/${item.id}`} className="btn btn-secondary mr-2" size='sm'>
                                    Edit
                                 </CButton>
                                 <CButton className="btn btn-danger sm" size='sm'>
@@ -79,4 +58,4 @@ class User extends React.Component {
     }
 }
 
-export default User;
+export default Company;

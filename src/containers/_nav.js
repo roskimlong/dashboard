@@ -13,6 +13,24 @@ export default [
     }
   },
   {
+    _tag: 'CSidebarNavItem',
+    name: 'Companies',
+    to: '/company',
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
+    badge: {
+      color: 'info'
+    }
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Posts',
+    to: '/post',
+    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
+    badge: {
+      color: 'info'
+    }
+  },
+  {
     _tag: 'CSidebarNavTitle',
     _children: ['Components']
   },
@@ -36,6 +54,24 @@ export default [
   },
   {
     _tag: 'CSidebarNavDropdown',
+    name: 'Menu',
+    route: '/menu',
+    icon: 'cil-list-rich',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Menu',
+        to: '/menu',
+      },
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Pages',
+        to: '/page',
+      }
+    ],
+  },
+  {
+    _tag: 'CSidebarNavDropdown',
     name: 'Categories',
     route: '/categories',
     icon: 'cil-list-rich',
@@ -51,15 +87,6 @@ export default [
         to: '/tag',
       }
     ],
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Posts',
-    to: '/post',
-    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>,
-    badge: {
-      color: 'info'
-    }
   }
 ]
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { Multiselect } from 'multiselect-react-dropdown';
 import {
     CCard,
     CCardBody,
@@ -11,19 +12,43 @@ import {
     CForm,
     CLabel,
     CButton,
-    CTextarea
+    CSelect,
+    CImg,
+    CInputFile
   } from '@coreui/react';
 
 class CreatePost extends React.Component {
 
     constructor(props){
-        super(props)
+        super(props);
         this.state = {
             id: props.id,
             content: props.content,
             handleWYSIWYGInput: props.handleWYSIWYGInput,
-            editor: ClassicEditor
+            editor: ClassicEditor,
+            file: '',
+            options: [{name: 'Srigar', id: 1},{name: 'Sam', id: 2}]
         } 
+    }
+
+    submitHandler = (e) => {
+        e.preventDefault();
+        // const userObject = Object.assign({}, {
+        //     file: URL.createObjectURL(e.target.files[0])
+        // });
+
+        // axios.post(`${baseUrl}`+`/api/v1/user`, { userObject })
+        //   .then(function () {
+        //     // <Redirect to="/user" />
+        //   })
+        this.setState({
+            file: URL.createObjectURL(e.target.files[0])
+          })
+    }
+    
+    handleChange  = (changeObject) => {
+        this.setState(changeObject);
+
     }
 
     render(){
@@ -47,10 +72,10 @@ class CreatePost extends React.Component {
                             <CRow>
                                 <CCol className="md-12 xs-12">
                                     <CFormGroup>
-                                    <CLabel>Description</CLabel>
-                                    <CTextarea
+                                    <CLabel>Barcode </CLabel>
+                                    <CInput
                                     className="form-control"
-                                    placeholder="Enter Description"
+                                    placeholder="Enter Barcode"
                                     />
                                     </CFormGroup>
                                 </CCol>
@@ -58,7 +83,7 @@ class CreatePost extends React.Component {
                             <CRow>
                                 <CCol className="md-12 xs-12">
                                     <CFormGroup>
-                                    <CLabel>Content <span className="text-danger">*</span></CLabel>
+                                    <CLabel>Description</CLabel>
                                     <CKEditor
                                     editor={ ClassicEditor }
                                     data="I think you are confused in how to configure the ckeditor setting in React. Mostly people are i was at the start but to do configuration in the ckeditor for react component you have to follow it like this. I React it take 
@@ -92,10 +117,8 @@ class CreatePost extends React.Component {
                                         <CCol className="md-12 xs-12">
                                             <CFormGroup>
                                             <CLabel>Thumnail <span className="text-danger">*</span></CLabel>
-                                            <CInput
-                                            className="form-control"
-                                            placeholder="Enter Title"
-                                            />
+                                            <CImg src={'avatars/no_image.png'} alt="image" className="img-fluid"/>
+                                            <CInputFile />
                                             </CFormGroup>
                                         </CCol>
                                     </CRow>
@@ -103,10 +126,10 @@ class CreatePost extends React.Component {
                                         <CCol className="md-12 xs-12">
                                             <CFormGroup>
                                             <CLabel>Categories <span className="text-danger">*</span></CLabel>
-                                            <CInput
-                                            className="form-control"
-                                            placeholder="Enter Title"
-                                            />
+                                            <CSelect>
+                                                <option>Select Option</option>
+                                                <option>T-shirt</option>
+                                            </CSelect>
                                             </CFormGroup>
                                         </CCol>
                                     </CRow>
@@ -114,9 +137,12 @@ class CreatePost extends React.Component {
                                         <CCol className="md-12 xs-12">
                                             <CFormGroup>
                                             <CLabel>Tags</CLabel>
-                                            <CInput
-                                            className="form-control"
-                                            placeholder="Enter Tag"
+                                            <Multiselect
+                                            options={this.state.options} // Options to display in the dropdown
+                                            selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+                                            onSelect={this.onSelect} // Function will trigger on select event
+                                            onRemove={this.onRemove} // Function will trigger on remove event
+                                            displayValue="name" // Property name to display in the dropdown options
                                             />
                                             </CFormGroup>
                                         </CCol>
